@@ -1,14 +1,14 @@
 <footer>
   <p>
-    Copyright &copy; 2021-<%= Time.now.year %>
+    Copyright &copy; 2021-<%= Time.now.year %> &bull; Produced by Jon Eccles with
     <%= link_to 'The Pragmatic Studio','https://pragmaticstudio.com' %>
+  </p>
+  <p>
+    <%= mail_to "swarthy_shinier0s@icloud.com", "Contact Support", subject: "Flix App Support" %>
   </p>
   <% unless Rails.env.production? %>
     <p>
       <%= link_to "Rails Routes", "http://localhost:3000/rails/info/routes", target: "_blank" %>
-    </p>
-    <p>
-      <%= mail_to "swarthy_shinier0s@icloud.com", "Contact Support", subject: "Flix App Support" %>
     </p>
   <% end %>
 </footer>
