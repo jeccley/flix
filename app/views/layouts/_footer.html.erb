@@ -1,0 +1,11 @@
+<footer>
+  <p>
+    Copyright &copy; 2021-<%= Time.now.year %>
+    <%= link_to 'The Pragmatic Studio','https://pragmaticstudio.com' %>
+  </p>
+  <% unless Rails.env.production? %>
+    <p>
+      <%= link_to "Rails Routes", "http://localhost:3000/rails/info/routes", target: "_blank" %>
+    </p>
+  <% end %>
+</footer>

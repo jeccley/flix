@@ -1,0 +1,26 @@
+<section class="user">
+  <h1><%= @genre.name %> Details</h1>
+  <!-- <h3>Created</h3> -->
+  <p>
+    Created <%= @genre.created_at.strftime("%B %Y") %>
+  </p>
+  <div class="actions">
+    <% if current_user_admin? %>
+      <%= link_to "Edit Genre", edit_genre_path(@genre),
+                  class: "button edit" %>
+      <%= link_to "Delete Genre", @genre, class: "button delete",
+                  method: :delete,
+                  data: { confirm: 'Permanently delete this genre?' } %>
+    <% end %>
+  </div>
+  <% if @movies.present? %>
+    <h3><%= @genre.name %> Movies</h3>
+    <% @movies.each do |movie| %>
+      <ul>
+        <li>
+          <%= link_to movie.title, movie %>
+        </li>
+      </ul>
+    <% end %>
+  <% end %>
+</section>

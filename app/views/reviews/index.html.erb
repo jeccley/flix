@@ -1,0 +1,23 @@
+<h1>Reviews for <%= link_to @movie.title, @movie %></h1>
+<ul class="reviews">
+  <% @reviews.each do |review| %>
+    <li>
+      <%= render "shared/stars", percent: review.stars_as_percent %>
+      <%# pluralize(review.stars, 'star') %>
+      <p>
+        <%= link_to profile_image(review.user, 35), review.user %>
+        <%= link_to review.user.name, review.user %>
+        <span class="date">
+          <%= time_ago_in_words(review.created_at) %> ago
+        </span>
+      </p>
+      <p>
+        <%= review.comment %>
+      </p>
+      <%= link_to "Edit", edit_movie_review_path(@movie, review),
+                          class: "button edit" %>
+      <%= link_to "Delete", [@movie, review], class: "button delete",
+                            method: :delete, data: { confirm: 'Are you sure?' } %>
+    </li>
+  <% end %>
+</ul>

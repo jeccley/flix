@@ -1,0 +1,3 @@
+<h1>Edit review for <%= link_to @movie.title, movie_reviews_path(@movie) %></h1>
+
+<%= render "form", movie: @movie, review: @review %>

@@ -1,0 +1,76 @@
+<section class="movie-details">
+  <div class="image">
+    <%= image_tag @movie.image_file_name %>
+    <% if current_user %>
+      <div class="faves">
+        <%= fave_or_unfave_button(@movie, @favourite) %>
+        <div class="count">
+          <%= @fans.size %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="details">
+    <h1><%= @movie.title %></h1>
+    <h2>
+      <%= year_of(@movie) %> &bull; <%= @movie.rating %>
+    </h2>
+    <div class="Reviews">
+      <%# average_stars(@movie) %>
+      <%= render "shared/stars", percent: @movie.average_stars_as_percent %>
+      <%= link_to pluralize(@movie.reviews.size, "Review"),
+                  movie_reviews_path(@movie) %>
+    </div>
+    <p>
+      <%= @movie.description %>
+    </p>
+    <table>
+      <tr>
+        <th>Director:</th>
+        <td><%= @movie.director %></td>
+      </tr>
+      <tr>
+        <th>Duration:</th>
+        <td><%= @movie.duration %></td>
+      </tr>
+      <tr>
+        <th>Total Gross:</th>
+        <td><%= total_gross(@movie) %></td>
+      </tr>
+    </table>
+    <h3>Write a review</h3>
+    <%= review_button_or_form(@movie) %>
+  </div>
+  <aside>
+    <% if @fans.present? %>
+      <h4>Fans</h4>
+      <ul>
+        <% @fans.each do |user| %>
+          <li>
+            <%= link_to profile_image(user, 35), user %>
+            <!-- <%# link_to user.name, user %> &bull; -->
+            <%= link_to user.username, user %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+    <% if @genres.present? %>
+      <h4>Genres</h4>
+      <ul>
+        <% @genres.each do |genre| %>
+          <li>
+            <%= link_to genre.name, genre %>
+          </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </aside>
+</section>
+
+<% if current_user_admin? %>
+  <section class="admin">
+    <%= link_to "Edit", edit_movie_path(@movie), class: "button" %>
+    <%= link_to "Delete", @movie, class: "button",
+                          method: :delete, data: { confirm: 'Are you sure?' } %>
+  </section>
+<% end %>
