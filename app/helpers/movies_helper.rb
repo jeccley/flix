@@ -1,4 +1,20 @@
 module MoviesHelper
+  def main_image(movie)
+    if movie.main_image.attached?
+      image_tag movie.main_image.variant(resize_to_limit: [150, nil])
+    else
+      image_tag "placeholder.png"
+    end
+  end
+
+  def nav_link_to(text, url)
+    if current_page?(url)
+      link_to text, url, class: "active"
+    else
+      link_to text, url
+    end
+  end
+
   def total_gross(movie)
     movie.flop? ? "Flop!" : number_to_currency(movie.total_gross, precision: 0)
   end
